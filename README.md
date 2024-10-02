@@ -16,6 +16,8 @@ yarn
 
 Call `deploy` at [src/index.ts](./src/index.ts).
 
+First, add your function call.
+
 ```ts
 // src/index.ts
 
@@ -33,8 +35,26 @@ deploy({
   })
 ```
 
-A shortcut to execute the TS file.
+Then, execute it.
 
 ```sh
-yarn deploy
+yarn ts-node src/index.ts
+```
+
+## Usage via CLI
+
+```sh
+yarn cli calculate-address -o 0xYourFirstOwner 0xYourSecondOwner -t 2 -n 1337
+yarn cli deploy \
+  -c arbitrumSepolia sepolia polygonAmoy avalancheFuji \
+  -o 0xYourFirstOwner 0xYourSecondOwner \
+  -t 2 \
+  -n 1337 \
+  -k 0xYourPrivateKey
+yarn cli deploy \
+  -c arbitrumSepolia sepolia polygonAmoy avalancheFuji \
+  -o 0xYourFirstOwner 0xYourSecondOwner \
+  -t 2 \
+  -n 1337 \
+  -m 'test test test test test test test test test test test junk'
 ```

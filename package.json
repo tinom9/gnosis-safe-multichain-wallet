@@ -9,14 +9,16 @@
     "yarn": ">=1.22.0"
   },
   "scripts": {
-    "deploy": "ts-node src/index.ts"
+    "cli": "ts-node src/cli.ts"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
+    "commander": "^12.1.0",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
-    "viem": "^2.21.16"
+    "viem": "^2.21.16",
+    "zod": "^3.23.8"
   },
   "prettier": {
     "printWidth": 120,
