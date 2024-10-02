@@ -2,18 +2,24 @@
 
 Deploy `GnosisSafeL2` wallets at multiple chains with the same address.
 
-## Usage
+Using version v1.3.0.
 
-Install dependencies, and call `main` at [src/index.ts](./src/index.ts).
+## Set-up
+
+Install dependencies.
 
 ```sh
 yarn
 ```
 
+## Usage via TS code
+
+Call `deploy` at [src/index.ts](./src/index.ts).
+
 ```ts
 // src/index.ts
 
-main({
+deploy({
   chains: ["arbitrumSepolia", "sepolia", "polygonAmoy", "avalancheFuji"],
   privateKey: process.env.PRIVATE_KEY as `0x${string}`,
   owners: ["0xYourFirstOwner", "0xYourSecondOwner"],
@@ -26,6 +32,8 @@ main({
     process.exit(1)
   })
 ```
+
+A shortcut to execute the TS file.
 
 ```sh
 yarn deploy
