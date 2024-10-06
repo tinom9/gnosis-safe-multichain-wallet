@@ -45,6 +45,7 @@ yarn ts-node src/index.ts
 
 ```sh
 yarn cli calculate-address -o 0xYourFirstOwner 0xYourSecondOwner -t 2 -n 1337
+yarn cli find-vanity-address -o 0xYourFirstOwner 0xYourSecondOwner -t 2 -v abc123
 yarn cli deploy \
   -c arbitrumSepolia sepolia polygonAmoy avalancheFuji \
   -o 0xYourFirstOwner 0xYourSecondOwner \

@@ -67,6 +67,25 @@ export function calculateAddress(owners: `0x${string}`[], threshold: bigint, non
   })
 }
 
+export function findVanityAddress(
+  owners: `0x${string}`[],
+  threshold: bigint,
+  vanity: string,
+  caseSensitive = false,
+  startNonce = 0n,
+): { address: `0x${string}`; nonce: bigint } {
+  let i = startNonce
+  while (true) {
+    const address = calculateAddress(owners, threshold, i)
+    if (
+      caseSensitive ? address.startsWith(`0x${vanity}`) : address.toLowerCase().startsWith(`0x${vanity.toLowerCase()}`)
+    ) {
+      return { address, nonce: i }
+    }
+    i++
+  }
+}
+
 export async function deploy<Chains extends ViemChainNames>(params: MnemonicParams<Chains> | PrivateKeyParams<Chains>) {
   let account: HDAccount | PrivateKeyAccount
   if (params.mnemonic) {

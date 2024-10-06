@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { z } from "zod"
 import * as viemChains from "viem/chains"
-import { calculateAddress, deploy } from "."
+import { calculateAddress, deploy, findVanityAddress } from "."
 
 function validateObject(schema: any, obj: unknown): { parsed: any | null; isValid: boolean } {
   const result = schema.safeParse(obj)
@@ -55,6 +55,31 @@ program
     const { owners, threshold, nonce } = validation.parsed
     const address = calculateAddress(owners, threshold, nonce)
     console.log(address)
+  })
+
+program
+  .command("find-vanity-address")
+  .description("Find a Gnosis Safe wallet address with a vanity string")
+  .requiredOption("-o, --owners <addresses...>", "list of owners (Ethereum addresses)")
+  .requiredOption("-t, --threshold <threshold>", "threshold (bigint)")
+  .requiredOption("-v, --vanity <vanity>", "vanity string")
+  .option("-c, --caseSensitive", "case sensitive search", false)
+  .option("-n, --startNonce <startNonce>", "start nonce (bigint)", "0")
+  .action((options) => {
+    const schema = z.object({
+      owners: z.array(ethereumAddressSchema),
+      threshold: bigintStringSchema,
+      vanity: z.string(),
+      caseSensitive: z.boolean().optional(),
+      startNonce: bigintStringSchema,
+    })
+    const validation = validateObject(schema, options)
+    if (!validation.isValid) {
+      return
+    }
+    const { owners, threshold, vanity, caseSensitive, startNonce } = validation.parsed
+    const { address, nonce } = findVanityAddress(owners, threshold, vanity, caseSensitive, startNonce)
+    console.log(`Address: ${address}, nonce: ${nonce}`)
   })
 
 program
